@@ -30,10 +30,10 @@ function BuildMenu(source)
       var id = app.findMenuCommandId(item.command || item.name || null);
       menuItems.push({
         name: item.name || '',
-        enabled: item.enabled || true,
-        show: item.show !== undefined ? item.show : true,
+        enabled: item.enabled === undefined || item.enabled,
+        show: item.show === undefined || item.show,
         items: inner(item.items || []),
-        script: (item.func || 'function () { app.executeCommand(' + id + '); }').toString(),
+        func: (item.func || 'function () { app.executeCommand(' + id + '); }').toString(),
       });
     }
     return menuItems;

@@ -28,7 +28,7 @@ BuildPopupMenu(std::unordered_map<UINT_PTR, std::string>& commands)
         {
             auto name = item["name"].string_value();
             auto items = item["items"].array_items();
-            auto uFlags = item["enabled"].bool_value() ? MF_ENABLED : MF_DISABLED;
+            auto uFlags = item["enabled"].bool_value() ? MF_ENABLED : MF_GRAYED;
             auto show = item["show"].bool_value();
 
             if (show == false)
@@ -39,7 +39,7 @@ BuildPopupMenu(std::unordered_map<UINT_PTR, std::string>& commands)
             if (items.empty())
             {
                 AppendMenu(hMenu, uFlags | (name.length() > 0 ? MF_STRING : MF_SEPARATOR), id, name.c_str());
-                commands[id] = "(" + item["script"].string_value() + ")();";
+                commands[id] = "(" + item["func"].string_value() + ")();";
                 id++;
             }
             else
